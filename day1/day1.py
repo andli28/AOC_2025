@@ -16,6 +16,8 @@ def solve():
     print(f"Part Two: {result_part2}")
 
 def part1(lines):
+    # Goal: Count how many times n mod 100 == 0
+
     # Keep track of the n mod 100
     # We start at n mod 50
 
@@ -41,10 +43,27 @@ def part1(lines):
     return res
 
 def part2(lines):
-    # 
+    # Goal: Count how many times n mod 100 == 0
+    # But now, we need to track every intermediate step
 
-    
-    return "Solution 2"
+    res = 0
+    currMod = 50
+
+    for line in lines:
+        direction = line[0]
+        number = int(line[1:])
+
+        for _ in range(number):
+            if direction == 'R':
+                currMod = (currMod + 1) % 100
+            elif direction == 'L':
+                currMod = (currMod - 1) % 100
+
+            if currMod == 0:
+                res += 1
+
+
+    return res
 
 if __name__ == "__main__":
     solve()
