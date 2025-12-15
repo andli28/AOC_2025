@@ -53,14 +53,27 @@ def part2(lines):
         direction = line[0]
         number = int(line[1:])
 
-        for _ in range(number):
-            if direction == 'R':
-                currMod = (currMod + 1) % 100
-            elif direction == 'L':
-                currMod = (currMod - 1) % 100
+        immRes = 0
 
-            if currMod == 0:
-                res += 1
+        if direction == 'R':
+            endNumMultiple = (currMod + number) // 100
+            currMod = (currMod + number) % 100
+            immRes = endNumMultiple
+        elif direction == 'L':
+            upper_bound_div = (currMod - 1) // 100
+            lower_bound_div = (currMod - number - 1) // 100
+            currMod = (currMod - number) % 100
+            immRes = upper_bound_div - lower_bound_div
+        res += immRes
+
+        # for _ in range(number):
+        #     if direction == 'R':
+        #         currMod = (currMod + 1) % 100
+        #     elif direction == 'L':
+        #         currMod = (currMod - 1) % 100
+
+        #     if currMod == 0:
+        #         res += 1
 
 
     return res
