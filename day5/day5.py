@@ -15,12 +15,114 @@ def solve():
     print(f"Part Two: {result_part2}")
 
 def part1(lines):
-    # Your solution for part 1 goes here
-    return "Solution 1"
+    # Read in ranges, merge where necessary.
+    # set of (start, end) tuples
+    ranges = set()
+    index = 0
+
+    while index < len(lines):
+        if lines[index] == "":
+            index += 1
+            break
+        merged = False
+        start, end = lines[index].split("-")
+
+        start = int(start)
+        end = int(end)
+        for s, e in ranges:
+            if start > e or end < s:
+                # cannot merge with this tuple
+                continue
+            else:
+                # merge
+                ranges.remove((s, e))
+
+                realStart = min(start, s)
+                realEnd = max(end, e)
+
+                ranges.add((realStart, realEnd))
+
+                merged = True
+        
+        # if not merged with any tuple
+        if not merged:
+            ranges.add((start, end))
+        index += 1
+    
+    res = 0
+    while index < len(lines):
+        ingID = int(lines[index])
+        for s, e in ranges:
+            if ingID >= s and ingID <= e:
+                res += 1
+                break
+        
+        index += 1
+
+
+    # Read in the ingredients, add where necessary.
+    return res
 
 def part2(lines):
-    # Your solution for part 2 goes here
-    return "Solution 2"
+    # read in ranges
+    ranges = set()
+    index = 0
+
+    while index < len(lines):
+        if lines[index] == "":
+            index += 1
+            break
+        merged = False
+        start, end = lines[index].split("-")
+
+        start = int(start)
+        end = int(end)
+        for s, e in ranges:
+            if start > e or end < s:
+                # cannot merge with this tuple
+                continue
+            else:
+                # merge
+                ranges.remove((s, e))
+
+                start = min(start, s)
+                end = max(end, e)
+
+                merged = True
+                break
+        
+        ranges.add((start, end))
+        
+        while merged:
+            for s, e in ranges:
+                if start > e or end < s:
+                    # cannot merge with this tuple
+                    merged = False
+                    continue
+                elif start == s and end == e:
+                    merged = False
+                    continue
+                else:
+                    # merge
+                    ranges.remove((s, e))
+
+                    start = min(start, s)
+                    end = max(end, e)
+
+                    ranges.add((start, end))
+
+                    merged = True
+                    break
+
+        index += 1
+
+    # loop through ranges, add the end - start + 1
+    res = 0
+    for s, e in ranges:
+        # print(s, e)
+        res += (e - s) + 1
+
+    return res
 
 if __name__ == "__main__":
     solve()
