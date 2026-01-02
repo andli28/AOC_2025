@@ -76,26 +76,6 @@ def part2(lines):
     for charac in lines[-1]:
         if charac != ".":
             res += int(charac)
-
-    # for i in range(len(lines)-1, -1, -1):
-    #     for j in range(len(lines[i])):
-    #         if i%2 == 0:
-    #             if lines[i][j] == "^":
-    #                 lines[i-1][j] = str(int(lines[i+1][j-1]) + int(lines[i+1][j+1]))
-    #             elif lines[i][j] == "S":
-    #                 res = lines[i+1][j]
-    #                 break
-    #             elif lines[i][j] != ".":
-    #                 lines[i-1][j] = lines[i][j]
-    #         else:
-    #             if lines[i][j] == "|":
-    #                 lines[i][j] = "1"
-    #             if lines[i][j] != ".":
-    #                 lines[i-1][j] = lines[i][j]
-    #     print("line:", i, lines[i])
-
-    # for line in lines:
-    #     print("".join(line))
     
     return res
 
